@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Andrea ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, #ffe6f0, #fff);
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.container {
+  padding: 40px 20px;
+}
+
+h1 {
+  color: #ff4d6d;
+}
+
+button {
+  padding: 15px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+#yesBtn {
+  background: #ff4d6d;
+  color: white;
+  transform: scale(1);
+  transition: transform 0.4s ease;
+}
+
+#noBtn {
+  background: #ccc;
+  position: absolute;
+}
+
+.hidden {
+  display: none;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 400px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.option {
+  display: block;
+  background: #ffedf2;
+  margin: 10px;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- STEP 1 -->
+<div id="step1">
+  <h1>Hey Andrea ❤️</h1>
+  <h2>Will you go on a date with me?</h2>
+
+  <button id="yesBtn" onclick="goYes()">YES ❤️</button>
+  <button id="noBtn">NO 🙈</button>
+</div>
+
+<!-- STEP 2 -->
+<div id="step2" class="hidden">
+  <h2>Pick a day 📅</h2>
+  <div class="card">
+    <div class="option" onclick="pickDay('Monday')">Monday</div>
+    <div class="option" onclick="pickDay('Tuesday')">Tuesday</div>
+    <div class="option" onclick="pickDay('Wednesday')">Wednesday</div>
+    <div class="option" onclick="pickDay('Thursday')">Thursday</div>
+    <div class="option" onclick="pickDay('Friday')">Friday</div>
+    <div class="option" onclick="pickDay('Saturday')">Saturday</div>
+    <div class="option" onclick="pickDay('Sunday')">Sunday</div>
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<div id="step3" class="hidden">
+  <h2>Pick exact time ⏰</h2>
+  <div class="card">
+    <div class="option" onclick="pickTime('12:00 PM')">12:00 PM</div>
+    <div class="option" onclick="pickTime('1:00 PM')">1:00 PM</div>
+    <div class="option" onclick="pickTime('2:00 PM')">2:00 PM</div>
+    <div class="option" onclick="pickTime('3:00 PM')">3:00 PM</div>
+    <div class="option" onclick="pickTime('4:00 PM')">4:00 PM</div>
+    <div class="option" onclick="pickTime('5:00 PM')">5:00 PM</div>
+    <div class="option" onclick="pickTime('6:00 PM')">6:00 PM</div>
+    <div class="option" onclick="pickTime('7:00 PM')">7:00 PM</div>
+    <div class="option" onclick="pickTime('8:00 PM')">8:00 PM</div>
+    <div class="option" onclick="pickTime('9:00 PM')">9:00 PM</div>
+    <div class="option" onclick="pickTime('10:00 PM')">10:00 PM</div>
+  </div>
+</div>
+
+<!-- STEP 4 -->
+<div id="step4" class="hidden">
+  <h2>What should we eat? 🍕</h2>
+  <div class="card">
+    <div class="option" onclick="pickFood('Burger 🍔')">Burger 🍔</div>
+    <div class="option" onclick="pickFood('Mexican 🌮')">Mexican 🌮</div>
+    <div class="option" onclick="pickFood('Pizza 🍕')">Pizza 🍕</div>
+  </div>
+</div>
+
+<!-- FINAL -->
+<div id="final" class="hidden">
+  <h2>It’s a date ❤️</h2>
+
+  <div class="card" id="summary"></div>
+
+  <button onclick="copyText()" style="background:#ff4d6d;color:white;">
+    📋 Copy my date details
+  </button>
+
+  <p>Please send this to me on Messenger.❤️</p>
+</div>
+
+</div>
+
+<script>
+let selectedDay = "";
+let selectedTime = "";
+let selectedFood = "";
+
+/* YES button smooth growth */
+let yesScale = 1;
+
+/* NO button only moves when clicked */
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("click", () => {
+  const x = Math.random() * (window.innerWidth - 120);
+  const y = Math.random() * (window.innerHeight - 120);
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+
+  // slow smooth YES growth
+  yesScale += 0.06;
+  document.getElementById("yesBtn").style.transform = `scale(${yesScale})`;
+});
+
+function goYes() {
+  document.getElementById("step1").classList.add("hidden");
+  document.getElementById("step2").classList.remove("hidden");
+}
+
+function pickDay(day) {
+  selectedDay = day;
+  document.getElementById("step2").classList.add("hidden");
+  document.getElementById("step3").classList.remove("hidden");
+}
+
+function pickTime(time) {
+  selectedTime = time;
+  document.getElementById("step3").classList.add("hidden");
+  document.getElementById("step4").classList.remove("hidden");
+}
+
+function pickFood(food) {
+  selectedFood = food;
+  document.getElementById("step4").classList.add("hidden");
+  document.getElementById("final").classList.remove("hidden");
+
+  document.getElementById("summary").innerHTML =
+    "Andrea’s answer ❤️<br><br>" +
+    "📅 " + selectedDay + "<br>" +
+    "⏰ " + selectedTime + "<br>" +
+    "🍕 " + selectedFood;
+}
+
+function copyText() {
+  const text =
+`Andrea’s answer ❤️
+📅 ${selectedDay}
+⏰ ${selectedTime}
+🍕 ${selectedFood}
+
+Please send this to me on Messenger. 😁 ❤️`;
+
+  navigator.clipboard.writeText(text);
+  alert("Copied ❤️ Send it to me on Messenger!");
+}
+</script>
+
+</body>
+</html>
